@@ -1,0 +1,30 @@
+services:
+  web:
+    image: nginx:1.21.1
+    networks:
+      - webnet
+    ports:
+      - 127.0.0.1:80:80
+    depends_on:
+      - db
+	
+	  
+  db:
+    image: postgres:13.3
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD_FILE: /run/secrets/admin_password
+    secrets:
+      - admin_password
+    networks:
+      - dbnet
+    ports:
+      - 127.0.0.1:5432:5432
+
+networks:
+  webnet:
+  dbnet:
+
+secrets:
+  db_password:
+    file: admin_password.txt
