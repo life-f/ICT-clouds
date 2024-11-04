@@ -1,0 +1,15 @@
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - 80:80
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: pwd
+    ports:
+      - 5432:5432
