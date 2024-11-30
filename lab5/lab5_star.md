@@ -153,10 +153,10 @@ helm upgrade prometheus prometheus-community/prometheus -n monitoring -f alert.y
 ![](lab_5_star/img2.png)
 ![](lab_5_star/img3.png)
 
-И через некоторое время `message` в `Telegram`.
+И `message` в `Telegram`.
 
 ![](lab_5_star/img4.png)
 
 ## Вывод
 
-В результате выполнения работы были рассмотрен процесс создания алертов через конфиг алертменеджера.
+В результате выполнения работы был рассмотрен процесс создания алертов через конфиг алертменеджера.
