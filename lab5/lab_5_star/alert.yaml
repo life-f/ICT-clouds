@@ -1,0 +1,37 @@
+alertmanager:
+  config:
+    global:
+      resolve_timeout: 1m
+      telegram_api_url: "https://api.telegram.org"
+
+    route:
+      receiver: telegram
+
+    receivers:
+      - name: telegram
+        telegram_configs:
+          - chat_id: id
+            bot_token: token
+            api_url: "https://api.telegram.org"
+            send_resolved: true
+            parse_mode: Markdown
+            message: |-
+              {{ range .Alerts }}
+                ❗ *Alert:* {{ .Annotations.summary }}
+                📝 *Description:* {{ .Annotations.description }}
+              {{ end }}
+
+serverFiles:
+  alerting_rules.yml:
+    groups:
+      - name: nginx-alerts
+        rules:
+          - alert: NginxDown
+            expr: absent(up{job="kubernetes-pods", app="nginx"} == 1)
+            for: 1m
+            labels:
+              severity: critical
+            annotations:
+              summary: "NGINX is down"
+              description: "NGINX has fallen..."
+
